@@ -38,7 +38,8 @@ pip install requests
 ### Configuration
 There are two configuration files that you need to prepare:
 
-config.ini: This file contains the configuration for the program, including the city, desired temperature, temperature delta trigger, relay pin, and temperature sensor pin. Here's an example of how it should look:
+**config.ini**   
+This file contains the configuration for the program, including the city, desired temperature, temperature delta trigger, relay pin, and temperature sensor pin. Here's an example of how it should look:
 
 ```ini
 [configuration]
@@ -49,7 +50,8 @@ relay_pin = 17
 temp_sensor_pin = 4
 ```
 
-weatherapi.credentials: This file contains your credentials for WeatherAPI. Here's an example of how it should look:
+**weatherapi.credentials**    
+This file contains your credentials for WeatherAPI. Here's an example of how it should look:
 ```ini
 [credentials]
 key = your_api_key_here
