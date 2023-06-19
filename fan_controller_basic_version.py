@@ -1,4 +1,10 @@
-import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO
+    print("Using real GPIO calls")
+except ImportError:
+    print("Using mock GPIO calls")
+    import mockGPIO as GPIO
+
 import argparse
 import time
 
@@ -21,11 +27,11 @@ def set_fan_state(state, pin, relay_active_low):
         GPIO.output(pin, GPIO.LOW)
 
 
-def main(pin):
+def main(pin, relay_active_low):
     time.sleep(3)
-    set_fan_state(True, pin)
+    set_fan_state(True, pin, relay_active_low)
     time.sleep(3)
-    set_fan_state(False, pin)
+    set_fan_state(False, pin, relay_active_low)
 
 
 if __name__ == "__main__":
@@ -34,10 +40,10 @@ if __name__ == "__main__":
 
     # Add the arguments
     parser.add_argument('pin', metavar='pin', type=int, help='Pin that activates fan via relay')
-    parser.add_argument('relay_active_low', metavar='relay_active_low', type=int, help='Specify if relay is active on LOW input')
+    parser.add_argument('relay_active_low', metavar='relay_active_low', type=bool, help='Specify if relay is active on LOW input')
 
     # Parse the arguments
     args = parser.parse_args()
 
     # Run the main function
-    main(args.pin)
+    main(args.pin, args.relay_active_low)

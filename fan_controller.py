@@ -1,5 +1,18 @@
-import RPi.GPIO as GPIO
-import Adafruit_DHT
+try:
+    import RPi.GPIO as GPIO
+    print("Using real GPIO calls")
+except ImportError:
+    print("Using mock GPIO calls")
+    import mockGPIO as GPIO
+
+try:
+    import Adafruit_DHT
+    print("Using real temperature sensor")
+except ImportError:
+    print("Using mock temperature sensor")
+    import mockDHT as Adafruit_DHT
+
+
 import configparser
 import requests
 import argparse
@@ -51,20 +64,6 @@ def set_fan_state(state, pin, relay_active_low):
         GPIO.output(pin, GPIO.HIGH)
     else:
         GPIO.output(pin, GPIO.LOW)
-
-
-def get_fan_state(pin):
-    # Use GPIO numbers not pin numbers
-    GPIO.setmode(GPIO.BCM)
-
-    # set up the GPIO channel
-    GPIO.setup(pin, GPIO.IN)
-
-    # Read the fan state
-    fan_state = GPIO.input(pin)
-
-    # Return the fan state
-    return fan_state
 
 
 def get_caravan_temperature(pin, sensor=Adafruit_DHT.DHT22):
