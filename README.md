@@ -48,6 +48,7 @@ desired_temperature = 25
 temperature_delta_trigger = 2
 relay_pin = 17
 temp_sensor_pin = 4
+relay_active_low = true
 ```
 
 **weatherapi.credentials**    
