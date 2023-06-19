@@ -35,7 +35,7 @@ def get_outside_temperature(city, weatherapi_credentials_file):
     return current_temperature
 
 
-def set_fan_state(state, pin):
+def set_fan_state(state, pin, relay_active_low):
     # Use GPIO numbers not pin numbers
     GPIO.setmode(GPIO.BCM)
 
@@ -43,7 +43,11 @@ def set_fan_state(state, pin):
     GPIO.setup(pin, GPIO.OUT)
 
     # Control the relay
-    if state:
+    relay_state = state
+    if relay_active_low:
+        relay_state = not relay_state
+
+    if relay_state:
         GPIO.output(pin, GPIO.HIGH)
     else:
         GPIO.output(pin, GPIO.LOW)
@@ -81,6 +85,7 @@ def main(config_file, weatherapi_credentials_file):
     temperature_delta_trigger = float(config.get('configuration', 'temperature_delta_trigger'))
     relay_pin = int(config.get('configuration', 'relay_pin'))
     temp_sensor_pin = int(config.get('configuration', 'temp_sensor_pin'))
+    relay_active_low = config.getboolean('configuration', 'relay_active_low')
 
     outside_temperature = get_outside_temperature(city, weatherapi_credentials_file)
     caravan_temperature = get_caravan_temperature(temp_sensor_pin)
@@ -89,9 +94,9 @@ def main(config_file, weatherapi_credentials_file):
     # If it's hotter than acceptable, we turn the fan on
     # otherwise, we leave the fan as it is
     if caravan_temperature < desired_temperature:
-        set_fan_state(False, relay_pin)
+        set_fan_state(False, relay_pin, relay_active_low)
     elif (caravan_temperature + temperature_delta_trigger) > outside_temperature:
-        set_fan_state(True, relay_pin)
+        set_fan_state(True, relay_pin, relay_active_low)
 
 
 if __name__ == "__main__":
