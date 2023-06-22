@@ -71,12 +71,16 @@ key = your_api_key_here
 ### Running once
 To run the project, navigate to the project directory in your terminal and run the following command:
 ```
-python3 main.py config.ini weatherapi.credentials
+python3 fan_controller.py config.ini weatherapi.credentials
 ```
 Replace config.ini and weatherapi.credentials with the paths to your actual configuration files if they're not in the same directory as main.py.  
 
 ### Setting up to run for real
-When running for real, the above should be run as a cron job at whatever interval you feel is right, bearing in mind it will hit the WeatherAPI service every time it runs.
+When running for real, the above should be run as a cron job at whatever interval you feel is right, bearing in mind it will hit the WeatherAPI service every time it runs. An example crontab entry, to run it every 15 minutes may be as follows:
+```
+*/15 * * * * cd /home/pi/CaravanFan && python3 fan_controller.py config.ini weatherapi.credentials
+```
+
 
 ## Logging
 Logging is configured via the logging.yaml file in the root directory.
