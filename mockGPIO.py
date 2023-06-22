@@ -1,13 +1,17 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
 BCM = 'BCM'
 OUT = 'OUT'
 HIGH = 'HIGH'
 LOW = 'LOW'
 
 def setmode(mode):
-    print(f'Set mode to {mode}')
+    logger.debug(f'Set mode to {mode}')
 
 def setup(pin, mode):
-    print(f'Set up pin {pin} with mode {mode}')
+    logger.debug(f'Set up pin {pin} with mode {mode}')
 
 def output(pin, state):
-    print(f'Output on pin {pin} set to {state}')
+    logger.debug(f'Output on pin {pin} set to {state}')
