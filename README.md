@@ -35,6 +35,11 @@ requests: This library is used to send HTTP requests to the WeatherAPI. Install 
 pip install requests
 ```
 
+yaml: This library is used to allow configuration of logging. Install it by running:
+```bash
+pip3 install PyYAML
+```
+
 ## Configuration
 There are two configuration files that you need to prepare:
 
