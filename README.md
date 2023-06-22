@@ -80,3 +80,13 @@ When running for real, the above should be run as a cron job at whatever interva
 
 ## Logging
 Logging is configured via the logging.yaml file in the root directory.
+
+## Wiring
+The DHT22 is wired as follows  
+- pin 1 is wired to 3.3V
+- pin 2 is wired to a GPIO pin of choice
+- pin 4 is wired to ground
+- pin 1 and 2 are wired together with a 10K Ohm resistor
+
+![DHT22 Wiring diagram](docs/DHT22_wiring_diagram.png)
+
